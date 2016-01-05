@@ -1,6 +1,6 @@
 # Enable warning all for gcc or use /W4 /WX for visual studio
 
-if(CMAKE_BUILD_TOOL MATCHES "(MSBuild|msdev|devenv|nmake)")
+if(CMAKE_MAKE_PROGRAM MATCHES "(MSBuild|devenv|msdev|nmake)")
 
   set(CMAKE_CXX_WARNING_LEVEL 4)
   if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
