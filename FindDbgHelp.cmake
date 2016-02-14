@@ -16,5 +16,6 @@ mark_as_advanced(DBGHELP_INCLUDE_DIR)
 mark_as_advanced(DBGHELP_LIBRARY)
 
 if(DBGHELP_FOUND)
+  add_definitions(-DDBGHELP_SUPPORT)
   set(DBGHELP_LIBRARIES ${DBGHELP_LIBRARY})
 endif()

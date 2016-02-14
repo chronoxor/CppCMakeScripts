@@ -16,5 +16,6 @@ mark_as_advanced(LIBBFD_INCLUDE_DIR)
 mark_as_advanced(LIBBFD_LIBRARY)
 
 if(LIBBFD_FOUND)
+  add_definitions(-DLIBBFD_SUPPORT)
   set(LIBBFD_LIBRARIES ${LIBBFD_LIBRARY})
 endif()

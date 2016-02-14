@@ -16,5 +16,6 @@ mark_as_advanced(LIBDL_INCLUDE_DIR)
 mark_as_advanced(LIBDL_LIBRARY)
 
 if(LIBDL_FOUND)
+  add_definitions(-DLIBDL_SUPPORT)
   set(LIBDL_LIBRARIES ${LIBDL_LIBRARY})
 endif()
