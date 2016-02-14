@@ -6,7 +6,7 @@
 # LIBDL_LIBRARIES
 
 find_path(LIBDL_INCLUDE_DIR dlfcn.h)
-find_library(LIBDL_LIBRARY NAMES dl libdl)
+find_library(LIBDL_LIBRARY dl)
 
 # Handle the REQUIRED argument and set LIBDL_FOUND
 include(FindPackageHandleStandardArgs)
