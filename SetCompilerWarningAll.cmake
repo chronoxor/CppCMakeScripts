@@ -1,4 +1,10 @@
 # Enable warning all for gcc or use /W4 /WX for visual studio
+# Following warnings are disabled:
+# VS 4100: 'identifier' : unreferenced formal parameter
+# VS 4127: conditional expression is constant
+# VS 4250: 'class1' : inherits 'class2::member' via dominance
+# VS 4702: unreachable code
+# VS 4996: 'function': was declared deprecated
 
 if(CMAKE_MAKE_PROGRAM MATCHES "(MSBuild|devenv|msdev|nmake)")
 
