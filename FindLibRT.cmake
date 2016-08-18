@@ -1,4 +1,4 @@
-# Try to find DL library and include path.
+# Try to find RT library and include path.
 # Once done this will define
 #
 # LIBRT_FOUND
