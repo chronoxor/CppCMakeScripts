@@ -5,7 +5,7 @@
 # LIBUUID_INCLUDE_DIR
 # LIBUUID_LIBRARIES
 
-find_path(LIBUUID_INCLUDE_DIR uuid.h)
+find_path(LIBUUID_INCLUDE_DIR uuid/uuid.h)
 find_library(LIBUUID_LIBRARY uuid)
 
 # Handle the REQUIRED argument and set LIBUUID_FOUND
