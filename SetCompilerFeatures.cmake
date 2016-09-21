@@ -1,5 +1,4 @@
 # Enable C++0x/C++11/C++14 and other compiler features
-
 if(NOT MSVC)
   include(CheckCXXCompilerFlag)
   CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)

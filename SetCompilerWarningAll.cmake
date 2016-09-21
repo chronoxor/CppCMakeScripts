@@ -5,7 +5,6 @@
 # VS 4250: 'class1' : inherits 'class2::member' via dominance
 # VS 4702: unreachable code
 # VS 4996: 'function': was declared deprecated
-
 if(CMAKE_MAKE_PROGRAM MATCHES "(MSBuild|devenv|msdev|nmake)")
 
   set(CMAKE_CXX_WARNING_LEVEL 4)
