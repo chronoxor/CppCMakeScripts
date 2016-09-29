@@ -1,19 +1,14 @@
-# Enable warning all for gcc or use /W4 /WX for visual studio
-# Following warnings are disabled:
-# VS 4091: 'keyword' : ignored on left of 'type' when no variable is declared
-# VS 4100: 'identifier' : unreferenced formal parameter
-# VS 4127: conditional expression is constant
-# VS 4250: 'class1' : inherits 'class2::member' via dominance
-# VS 4702: unreachable code
-# VS 4996: 'function': was declared deprecated
+# Enable pedantic warning checks for GCC and Visual Studio
 if(CMAKE_MAKE_PROGRAM MATCHES "(MSBuild|devenv|msdev|nmake)")
+  # Ignore some paranoid Visual Studio warnings globally:
+  # C4100: 'identifier' : unreferenced formal parameter
   set(CMAKE_C_WARNING_LEVEL 4)
   if(CMAKE_C_FLAGS MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
   endif()
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX /wd4091 /wd4100 /wd4127 /wd4250 /wd4702 /wd4996")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /WX /wd4100")
   set(CMAKE_CXX_WARNING_LEVEL 4)
   if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
