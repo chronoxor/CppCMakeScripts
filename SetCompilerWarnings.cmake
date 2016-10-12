@@ -7,13 +7,10 @@ if(NOT MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
   # Common compile flags
-  set(COMMON_COMPILE_FLAGS "-Wno-unused-variable")
+  set(COMMON_COMPILE_FLAGS "")
 
   # Pedantic compile flags
-  set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wextra -Wshadow -pedantic")
-
-  # Benchmark compile flags
-  set(BENCHMARK_COMPILE_FLAGS "${PEDANTIC_COMPILE_FLAGS}")
+  set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
 
 else()
 
@@ -37,13 +34,10 @@ else()
 
   # Common compile flags
   # C4100: 'identifier' : unreferenced formal parameter
-  set(COMMON_COMPILE_FLAGS "/wd4100")
+  # C4250: 'class1' : inherits 'class2::member' via dominance
+  set(COMMON_COMPILE_FLAGS "/wd4100 /wd4250")
 
   # Pedantic compile flags
   set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS}")
-
-  # Benchmark compile flags
-  # C4250: 'class1' : inherits 'class2::member' via dominance
-  set(BENCHMARK_COMPILE_FLAGS "${PEDANTIC_COMPILE_FLAGS} /wd4250")
 
 endif()
