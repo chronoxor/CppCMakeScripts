@@ -6,7 +6,11 @@
 # DBGHELP_LIBRARIES
 
 find_path(DBGHELP_INCLUDE_DIR dbghelp.h)
-find_library(DBGHELP_LIBRARY dbghelp.lib)
+if(NOT MSVC)
+  find_library(DBGHELP_LIBRARY dbghelp)
+else()
+  find_library(DBGHELP_LIBRARY dbghelp.lib)
+endif()
 
 # Handle the REQUIRED argument and set DBGHELP_FOUND
 include(FindPackageHandleStandardArgs)

@@ -6,7 +6,11 @@
 # USERENV_LIBRARIES
 
 find_path(USERENV_INCLUDE_DIR userenv.h)
-find_library(USERENV_LIBRARY userenv.lib)
+if(NOT MSVC)
+  find_library(USERENV_LIBRARY userenv)
+else()
+  find_library(USERENV_LIBRARY userenv.lib)
+endif()
 
 # Handle the REQUIRED argument and set USERENV_FOUND
 include(FindPackageHandleStandardArgs)
