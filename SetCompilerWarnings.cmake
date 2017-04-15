@@ -34,9 +34,8 @@ else()
 
   # Common compile flags
   # C4100: 'identifier' : unreferenced formal parameter
-  # C4244: 'conversion' conversion from 'type1' to 'type2', possible loss of data
   # C4250: 'class1' : inherits 'class2::member' via dominance
-  set(COMMON_COMPILE_FLAGS "/wd4100 /wd4244 /wd4250")
+  set(COMMON_COMPILE_FLAGS "/wd4100 /wd4250")
 
   # Pedantic compile flags
   set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS}")
