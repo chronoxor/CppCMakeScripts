@@ -1,7 +1,5 @@
 # Compiler features
 
-# Enable C++11 standard
-set(CMAKE_CXX_STANDARD 11)
 # Enable C++14 standard
 set(CMAKE_CXX_STANDARD 14)
 
