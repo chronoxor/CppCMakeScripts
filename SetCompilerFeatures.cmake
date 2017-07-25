@@ -1,7 +1,7 @@
 # Compiler features
 
-# Enable C++17 feature
-set(CMAKE_CXX_STANDARD 17)
+# Enable C++14 feature
+set(CMAKE_CXX_STANDARD 14)
 
 # Clang libc++
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
