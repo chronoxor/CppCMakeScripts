@@ -7,8 +7,8 @@ if(WIN32)
 
   # Disable CRT secure warnings
   add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
-  # Disable C++17 codecvt warnings
-  add_definitions(-D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING)  
+  # Disable C++17 warnings
+  add_definitions(-D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS)
 
   # Windows 10
   add_definitions(-D_WIN32_WINNT=0x0A00)
