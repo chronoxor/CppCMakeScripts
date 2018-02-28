@@ -1,7 +1,7 @@
 # Compiler features
 
 # Enable C++14 or C++17 standard
-if(CYGWIN)
+if(CYGWIN OR MSVC)
   set(CMAKE_CXX_STANDARD 14)
 else()
   set(CMAKE_CXX_STANDARD 17)
