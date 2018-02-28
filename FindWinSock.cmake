@@ -7,10 +7,10 @@
 
 find_path(WINSOCK_INCLUDE_DIR WinSock2.h)
 if(NOT MSVC)
-  find_library(WINSOCK_LIBRARY wsock32)
+  find_library(WINSOCK_LIBRARY mswsock)
   find_library(WINSOCK2_LIBRARY ws2_32)
 else()
-  find_library(WINSOCK_LIBRARY wsock32.lib)
+  find_library(WINSOCK_LIBRARY mswsock.lib)
   find_library(WINSOCK2_LIBRARY ws2_32.lib)
 endif()
 
