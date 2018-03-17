@@ -1,12 +1,10 @@
 # Compiler features
 
-# Enable C++17 standard
-set(CMAKE_CXX_STANDARD 17)
-
-# Cygwin C++17 workaround
+# Choose C++ standard
 if(CYGWIN)
   set(CMAKE_CXX_STANDARD 14)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+else()
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 # Clang libc++
