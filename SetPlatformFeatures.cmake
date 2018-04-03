@@ -14,4 +14,7 @@ if(WIN32)
   # Windows 10
   add_definitions(-D_WIN32_WINNT=0x0A00)
 
+  # Windows SDK
+  add_definitions(-D_WIN32_SDK=${CMAKE_SYSTEM_VERSION})
+
 endif()
