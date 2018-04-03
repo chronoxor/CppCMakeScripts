@@ -15,6 +15,7 @@ if(WIN32)
   add_definitions(-D_WIN32_WINNT=0x0A00)
 
   # Windows SDK
-  add_definitions(-D_WIN32_SDK=${CMAKE_SYSTEM_VERSION})
+  string(REGEX REPLACE "10.0.(.*)" "\\1" CMAKE_WIN32_SDK ${CMAKE_SYSTEM_VERSION})
+  add_definitions(-D_WIN32_SDK=${CMAKE_WIN32_SDK})
 
 endif()
