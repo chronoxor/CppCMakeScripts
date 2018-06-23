@@ -3,7 +3,7 @@
 if(CYGWIN)
 
   # Cygwin string.empty() workaround
-  add_definitions(-D_GLIBCXX_USE_CXX11_ABI)
+  add_definitions(-D_GLIBCXX_USE_CXX17_ABI)
 
 endif()
 
