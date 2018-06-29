@@ -1,12 +1,5 @@
 # Platform features
 
-if(CYGWIN)
-
-  # Cygwin string.empty() workaround
-  add_definitions(-D_GLIBCXX_USE_CXX11_ABI)
-
-endif()
-
 if(WIN32)
 
   # Base Windows platform
