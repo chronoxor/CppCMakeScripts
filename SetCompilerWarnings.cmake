@@ -8,19 +8,7 @@ set(CMAKE_CXX_FLAGS_ORIGIN "${CMAKE_CXX_FLAGS}")
 set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS}")
 
-if(NOT MSVC)
-
-  # Make all warnings into errors
-  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror")
-  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
-
-  # Common compile flags
-  set(COMMON_COMPILE_FLAGS "")
-
-  # Pedantic compile flags
-  set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
-
-else()
+if(MSVC)
 
   # Set warnings level 4
   set(CMAKE_C_WARNING_LEVEL 4)
@@ -47,6 +35,18 @@ else()
 
   # Pedantic compile flags
   set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS}")
+
+else()
+
+  # Make all warnings into errors
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror")
+  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
+
+  # Common compile flags
+  set(COMMON_COMPILE_FLAGS "")
+
+  # Pedantic compile flags
+  set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
 
 endif()
 

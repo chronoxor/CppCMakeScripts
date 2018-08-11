@@ -6,10 +6,10 @@
 # USERENV_LIBRARIES
 
 find_path(USERENV_INCLUDE_DIR userenv.h)
-if(NOT MSVC)
-  find_library(USERENV_LIBRARY userenv)
-else()
+if(MSVC)
   find_library(USERENV_LIBRARY userenv.lib)
+else()
+  find_library(USERENV_LIBRARY userenv)
 endif()
 
 # Handle the REQUIRED argument and set USERENV_FOUND

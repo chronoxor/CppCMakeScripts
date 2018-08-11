@@ -6,10 +6,10 @@
 # CRYPT_LIBRARIES
 
 find_path(CRYPT_INCLUDE_DIR wincrypt.h)
-if(NOT MSVC)
-  find_library(CRYPT_LIBRARY crypt32)
-else()
+if(MSVC)
   find_library(CRYPT_LIBRARY crypt32.lib)
+else()
+  find_library(CRYPT_LIBRARY crypt32)
 endif()
 
 # Handle the REQUIRED argument and set CRYPT_FOUND
