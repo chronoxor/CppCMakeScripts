@@ -14,7 +14,7 @@ endif()
 
 # Handle the REQUIRED argument and set RPC_FOUND
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Userenv DEFAULT_MSG RPC_LIBRARY RPC_INCLUDE_DIR)
+find_package_handle_standard_args(RPC DEFAULT_MSG RPC_LIBRARY RPC_INCLUDE_DIR)
 
 mark_as_advanced(RPC_INCLUDE_DIR)
 mark_as_advanced(RPC_LIBRARY)
