@@ -5,7 +5,7 @@
 # RPC_INCLUDE_DIR
 # RPC_LIBRARIES
 
-find_path(RPC_INCLUDE_DIR rpcdce.h)
+find_path(RPC_INCLUDE_DIR rpc.h)
 if(MSVC)
   find_library(RPC_LIBRARY rpcrt4.lib)
 else()
