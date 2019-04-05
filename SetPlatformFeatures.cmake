@@ -15,7 +15,11 @@ if(WIN32)
   add_definitions(-D_WIN32_WINNT=0x0A00)
 
   # Windows SDK
-  string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$" "\\3" CMAKE_WIN32_SDK ${CMAKE_SYSTEM_VERSION})
+  if(CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION STREQUAL "")
+    string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$" "\\3" CMAKE_WIN32_SDK ${CMAKE_SYSTEM_VERSION})
+  else()
+    string(REGEX REPLACE "^([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)$" "\\3" CMAKE_WIN32_SDK ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION})
+  endif()
   add_definitions(-D_WIN32_SDK=${CMAKE_WIN32_SDK})
 
 endif()
