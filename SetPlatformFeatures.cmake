@@ -1,5 +1,12 @@
 # Platform features
 
+if(CYGWIN)
+
+  # Cygwin sockets
+  add_definitions(-D__USE_W32_SOCKETS)
+
+endif()
+
 if(WIN32)
 
   # Base Windows platform
