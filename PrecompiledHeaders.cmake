@@ -54,7 +54,7 @@ function( target_precompiled_header pch_target pch_file )
 		endif()
 
 		if( pch_REUSE )
-			get_target_property( pch_out ${pch_REUSE} PCH )
+			get_target_property( pch_out ${pch_REUSE} PCH_OUT )
 		else()
 			set( pch_out "${pch_out_dir}/${pch_pch}" )
 		endif()
@@ -91,7 +91,7 @@ function( target_precompiled_header pch_target pch_file )
 		endforeach()
 
 		if( NOT pch_REUSE )
-			set_property( TARGET ${pch_target} PROPERTY PCH "${pch_out}" )
+			set_property( TARGET ${pch_target} PROPERTY PCH_OUT "${pch_out}" )
 
 			if( pch_cpp_needed AND NOT pch_cpp_found )
 				message( FATAL_ERROR "Cpp ${pch_cpp} is required by MSVC" )
@@ -102,24 +102,29 @@ function( target_precompiled_header pch_target pch_file )
 	endif()
 
 	if( CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU" AND UNIX )
-		set( pch_out_h "${pch_out_dir}/${pch_name}" )
-		set( pch_out "${pch_out_dir}/${pch_pch}" )
-		set( pch_h_in "${CMAKE_CURRENT_SOURCE_DIR}/include/${pch_file}")
-
-		# add command to copy precompiled header
-		add_custom_command(
-			OUTPUT "${pch_out_h}" 
-			COMMAND "${CMAKE_COMMAND}" -E copy "${pch_h_in}" "${pch_out_h}"
-			COMMENT "Copying precompiled header"
-		)
-
-		# add command to compile precompiled header
-		add_custom_command(
-			OUTPUT "${pch_out}"
-			COMMAND ${CMAKE_CXX_COMPILER} \${CXX_DEFINES} \${CXX_INCLUDES} \${CXX_FLAGS} ${PEDANTIC_COMPILE_FLAGS} -x c++-header ${pch_h_in} -o ${pch_out}
-			DEPENDS "${pch_out_h}" "${pch_opt}"
-			COMMENT "Compiling precompiled header"
-		)
+		if( pch_REUSE )
+			get_target_property( pch_out ${pch_REUSE} PCH_OUT )
+			get_target_property( pch_out_h ${pch_REUSE} PCH_OUT_H )
+		else()
+			set( pch_in_h "${CMAKE_CURRENT_SOURCE_DIR}/include/${pch_file}")
+			set( pch_out "${pch_out_dir}/${pch_pch}" )
+			set( pch_out_h "${pch_out_dir}/${pch_name}" )
+		        
+			# add command to copy precompiled header
+			add_custom_command(
+				OUTPUT "${pch_out_h}" 
+				COMMAND "${CMAKE_COMMAND}" -E copy "${pch_in_h}" "${pch_out_h}"
+				COMMENT "Copying precompiled header"
+			)
+		        
+			# add command to compile precompiled header
+			add_custom_command(
+				OUTPUT "${pch_out}"
+				COMMAND ${CMAKE_CXX_COMPILER} \${CXX_DEFINES} \${CXX_INCLUDES} \${CXX_FLAGS} ${PEDANTIC_COMPILE_FLAGS} -x c++-header ${pch_in_h} -o ${pch_out}
+				DEPENDS "${pch_out_h}" "${pch_opt}"
+				COMMENT "Compiling precompiled header"
+			)
+		endif()
 
 		# set dependencies to precompiled header
 		foreach( src ${srcs} )
@@ -134,5 +139,12 @@ function( target_precompiled_header pch_target pch_file )
 				set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " -Winvalid-pch -include ${pch_out_h}" )
 			endif()
 		endforeach()
+
+		if( NOT pch_REUSE )
+			set_property( TARGET ${pch_target} PROPERTY PCH_OUT "${pch_out}" )
+			set_property( TARGET ${pch_target} PROPERTY PCH_OUT_H "${pch_out_h}" )
+
+			message( STATUS "Precompiled header '${pch_pure_h}' enabled for '${pch_target}' target" )
+		endif()
 	endif()
 endfunction()
