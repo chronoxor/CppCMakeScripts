@@ -175,7 +175,5 @@ function( target_precompiled_header pch_target pch_file )
 				set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " -Winvalid-pch -include ${pch_out_h}" )
 			endif()
 		endforeach()
-
 	endif()
-
 endfunction()
