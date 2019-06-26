@@ -101,7 +101,7 @@ function( target_precompiled_header pch_target pch_file )
 		endif()
 	endif()
 
-	if( CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU" AND UNIX )
+	if( CMAKE_CXX_COMPILER_ID MATCHES "~Clang|~GNU" AND UNIX )
 		set( pch_out_h "${pch_out_dir}/${pch_name}" )
 		set( pch_out "${pch_out_dir}/${pch_pch}" )
 		set( pch_h_in "${CMAKE_CURRENT_SOURCE_DIR}/include/${pch_file}")
