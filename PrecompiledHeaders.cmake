@@ -120,7 +120,7 @@ function( target_precompiled_header pch_target pch_file )
 			# add command to compile precompiled header
 			add_custom_command(
 				OUTPUT "${pch_out}"
-				COMMAND ${CMAKE_CXX_COMPILER} \${CXX_DEFINES} \${CXX_INCLUDES} \${CXX_FLAGS} ${PEDANTIC_COMPILE_FLAGS} -x c++-header ${pch_in_h} -o ${pch_out}
+				COMMAND ${CMAKE_CXX_COMPILER} \${CXX_DEFINES} \${CXX_INCLUDES} \${CXX_FLAGS} -Wshadow -pedantic -x c++-header ${pch_in_h} -o ${pch_out}
 				DEPENDS "${pch_out_h}" "${pch_opt}"
 				COMMENT "Compiling precompiled header"
 			)
