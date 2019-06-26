@@ -39,14 +39,14 @@ if(MSVC)
 else()
 
   # Make all warnings into errors
-  set(CMAKE_C_FLAGS_CUSTOM ${CMAKE_C_FLAGS_CUSTOM} "-Wall" "-Werror")
-  set(CMAKE_CXX_FLAGS_CUSTOM ${CMAKE_CXX_FLAGS_CUSTOM} "-Wall" "-Werror")
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror")
+  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
 
   # Common compile flags
   set(COMMON_COMPILE_FLAGS "")
 
   # Pedantic compile flags
-  set(PEDANTIC_COMPILE_FLAGS ${COMMON_COMPILE_FLAGS} "-Wshadow" "-pedantic")
+  set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
 
 endif()
 
