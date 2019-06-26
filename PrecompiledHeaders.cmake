@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-
 cmake_minimum_required( VERSION 3.12 )
 
 function( target_precompiled_header pch_target pch_file )
