@@ -101,63 +101,22 @@ function( target_precompiled_header pch_target pch_file )
 		endif()
 	endif()
 
-	if( CMAKE_CXX_COMPILER_ID MATCHES "~Clang|~GNU" AND UNIX )
+	if( CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU" AND UNIX )
 		set( pch_out_h "${pch_out_dir}/${pch_name}" )
 		set( pch_out "${pch_out_dir}/${pch_pch}" )
 		set( pch_h_in "${CMAKE_CURRENT_SOURCE_DIR}/include/${pch_file}")
 
-		### check deprecated COMPILE_FLAGS
-		get_directory_property( for_check COMPILE_FLAGS )
-		if( for_check )
-			message( FATAL_ERROR "COMPILE_FLAGS is deprecated and not supported by precompiled headers: ${for_check}" )
-		endif()
-		get_target_property( for_check ${pch_target} COMPILE_FLAGS )
-		if( for_check )
-			message( FATAL_ERROR "COMPILE_FLAGS is deprecated and not supported by precompiled headers: ${for_check}" )
-		endif()
-
-		### prepare
-
-		set( build_type ${CMAKE_BUILD_TYPE} )
-		string( TOUPPER "${build_type}" build_type )
-		set( current_build_cxx_flags ${CMAKE_CXX_FLAGS_${build_type}} )
-		separate_arguments( current_build_cxx_flags )
-
-		set( main_cmake_cxx_flags ${CMAKE_CXX_FLAGS} )
-		separate_arguments( main_cmake_cxx_flags )
-
-		# file with compilation options
-		set( pch_opt "${pch_out_dir}/${pch_pch}.opt" )
-		set( _tar_type "$<TARGET_PROPERTY:${pch_target},TYPE>" )
-		set( _tar_pic "$<BOOL:$<TARGET_PROPERTY:${pch_target},POSITION_INDEPENDENT_CODE>>" )
-		set( _tar_pic "$<IF:$<STREQUAL:${_tar_type},EXECUTABLE>,$<IF:${_tar_pic},-fPIE\n,-fno-PIE\n>,$<IF:${_tar_pic},-fPIC\n,-fno-PIC\n>>" )
-		# TODO: problem with -isystem - now is -I
-		set( _inc_def "$<TARGET_PROPERTY:${pch_target},INCLUDE_DIRECTORIES>" )
-		set( _inc_def "$<$<BOOL:${_inc_def}>:-I$<JOIN:${_inc_def},\n-I>\n>" )
-		set( _comp_def "$<TARGET_PROPERTY:${pch_target},COMPILE_DEFINITIONS>" )
-		set( _comp_def "$<$<BOOL:${_comp_def}>:-D$<JOIN:${_comp_def},\n-D>\n>" )
-		set( _comp_opt "$<TARGET_PROPERTY:${pch_target},COMPILE_OPTIONS>" )
-		set( _comp_opt "$<$<BOOL:${_comp_opt}>:$<JOIN:${_comp_opt},\n>\n>" )
-		set( main_cmake_cxx_flags "$<$<BOOL:${main_cmake_cxx_flags}>:$<JOIN:${main_cmake_cxx_flags},\n>\n>" )
-		set( current_build_cxx_flags "$<$<BOOL:${current_build_cxx_flags}>:$<JOIN:${current_build_cxx_flags},\n>\n>" )
-		# TODO: add CMAKE_CXX_STANDARD_REQUIRED
-		set( _cxx_standard "$<TARGET_PROPERTY:${pch_target},CXX_STANDARD>" )
-		set( _cxx_extensions "$<BOOL:$<TARGET_PROPERTY:${pch_target},CXX_EXTENSIONS>>" )
-		set( _cxx_standard "$<IF:$<BOOL:${_cxx_standard}>,$<IF:${_cxx_extensions},-std=gnu++${_cxx_standard}\n,-std=c++${_cxx_standard}\n>,>" )
-
-		file( GENERATE OUTPUT "${pch_opt}" CONTENT
-			"${_cxx_standard}${main_cmake_cxx_flags}${_tar_pic}${current_build_cxx_flags}${_inc_def}${_comp_def}${_comp_opt}" )
-
-		# add command to copy precompiled header and compile it
+		# add command to copy precompiled header
 		add_custom_command(
 			OUTPUT "${pch_out_h}" 
 			COMMAND "${CMAKE_COMMAND}" -E copy "${pch_h_in}" "${pch_out_h}"
 			COMMENT "Copying precompiled header"
 		)
-		# clang can read options from file by "@path_to_file"
+
+		# add command to compile precompiled header
 		add_custom_command(
 			OUTPUT "${pch_out}"
-			COMMAND ${CMAKE_CXX_COMPILER} "@${pch_opt}" -x c++-header ${pch_h_in} -o ${pch_out}
+			COMMAND ${CMAKE_CXX_COMPILER} ${CXX_DEFINES} ${CXX_INCLUDES} ${CXX_FLAGS} -x c++-header ${pch_h_in} -o ${pch_out}
 			DEPENDS "${pch_out_h}" "${pch_opt}"
 			COMMENT "Compiling precompiled header"
 		)
