@@ -27,7 +27,12 @@
 cmake_minimum_required( VERSION 3.12 )
 
 function( target_precompiled_header pch_target pch_file )
-	cmake_parse_arguments( pch "FORCE_INCLUDE" "" "EXCLUDE_LIST" ${ARGN} )
+	cmake_parse_arguments( pch "FORCE_INCLUDE" "REUSE" "EXCLUDE_LIST" ${ARGN} )
+
+	if( pch_REUSE AND NOT TARGET "${pch_REUSE}" )
+		message( SEND_ERROR "Re-use target \"${pch_REUSE}\" does not exist!" )
+		return()
+	endif()
 
 	get_filename_component( pch_name ${pch_file} NAME )
 	get_filename_component( pch_name_we ${pch_file} NAME_WE )
@@ -50,7 +55,11 @@ function( target_precompiled_header pch_target pch_file )
 			set( pch_cpp_reg ".*${pch_name_we}.\(cpp|cxx|cc|c\)$" )
 		endif()
 
-		set( pch_out "${pch_out_dir}/${pch_pch}" )
+		if( pch_REUSE )
+			get_target_property( pch_out ${pch_REUSE} PCH )
+		else()
+			set( pch_out "${pch_out_dir}/${pch_pch}" )
+		endif()
 
 		foreach( src ${srcs} )
 			get_filename_component( src_name "${src}" NAME )
@@ -67,12 +76,14 @@ function( target_precompiled_header pch_target pch_file )
 					endif()
 					set( pch_cpp_found TRUE )
 					set_property( SOURCE ${src} APPEND PROPERTY OBJECT_OUTPUTS "${pch_out}" )
-					set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " /Yc${pch_pure_h} /Fp${pch_out}" )
+					set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " /Z7 /Yc${pch_pure_h} /Fp${pch_out}" )
 				# common cpp
 				else()
-					set( pch_cpp_needed TRUE )
+					if( NOT pch_REUSE )
+						set( pch_cpp_needed TRUE )
+					endif()
 					set_property( SOURCE ${src} APPEND PROPERTY OBJECT_DEPENDS "${pch_out}" )
-					set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " /Yu${pch_pure_h} /Fp${pch_out}" )
+					set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " /Z7 /Yu${pch_pure_h} /Fp${pch_out}" )
 
 					if( pch_FORCE_INCLUDE )
 						set_property( SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS " /FI${pch_pure_h}" )
@@ -81,13 +92,15 @@ function( target_precompiled_header pch_target pch_file )
 			endif()
 		endforeach()
 
-		set_property( TARGET ${pch_target} PROPERTY PCH "${pch_out}" )
+		if( NOT pch_REUSE )
+			set_property( TARGET ${pch_target} PROPERTY PCH "${pch_out}" )
 
-		if( pch_cpp_needed AND NOT pch_cpp_found )
-			message( FATAL_ERROR "Cpp ${pch_cpp} is required by MSVC" )
+			if( pch_cpp_needed AND NOT pch_cpp_found )
+				message( FATAL_ERROR "Cpp ${pch_cpp} is required by MSVC" )
+			endif()
+
+			message( STATUS "Precompiled header '${pch_pure_h}' enabled for '${pch_target}' target" )
 		endif()
-
-		message( STATUS "Precompiled header enabled for ${pch_target}" )
 	endif()
 
 	if( CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU" AND UNIX )
