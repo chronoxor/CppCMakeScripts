@@ -41,7 +41,7 @@ function( target_precompiled_header pch_target pch_file )
 	if( CMAKE_CXX_COMPILER_ID STREQUAL "GNU" )
 		set( pch_pch "${pch_name}.gch" ) # just StdAfx.h.gch
 	endif()
-	set( pch_out_dir "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${pch_target}.dir" )
+	set( pch_out_dir "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${pch_target}.dir/$(Configuration)" )
 
 	get_target_property( srcs ${pch_target} SOURCES )
 
