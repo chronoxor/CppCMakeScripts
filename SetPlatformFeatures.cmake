@@ -8,9 +8,6 @@ if(CYGWIN)
   # Windows 10
   add_definitions(-D_WIN32_WINNT=0x0A00)
 
-  # Cygwin sockets
-  add_definitions(-D__USE_W32_SOCKETS)
-
 elseif(WIN32)
 
   # Base Windows platform
