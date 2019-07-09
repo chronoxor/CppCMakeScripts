@@ -12,13 +12,12 @@ if(MSVC)
 
   # Set warnings level 4
   set(CMAKE_C_WARNING_LEVEL 4)
+  set(CMAKE_CXX_WARNING_LEVEL 4)
   if(CMAKE_C_FLAGS_CUSTOM MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_C_FLAGS_CUSTOM ${CMAKE_C_FLAGS_CUSTOM})
   else()
     set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /W4")
   endif()
-  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /WX /bigobj")
-  set(CMAKE_CXX_WARNING_LEVEL 4)
   if(CMAKE_CXX_FLAGS_CUSTOM MATCHES "/W[0-4]")
     string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS_CUSTOM ${CMAKE_CXX_FLAGS_CUSTOM})
   else()
@@ -26,6 +25,7 @@ if(MSVC)
   endif()
 
   # Make all warnings into errors and increases the number of sections that an object file can contain
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /WX /bigobj")
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /WX /bigobj")
 
   # Common compile flags
