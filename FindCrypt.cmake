@@ -1,4 +1,4 @@
-# Try to find Userenv library and include path.
+# Try to find Crypt library and include path.
 # Once done this will define
 #
 # CRYPT_FOUND
