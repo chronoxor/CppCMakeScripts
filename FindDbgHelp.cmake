@@ -5,7 +5,7 @@
 # DBGHELP_INCLUDE_DIR
 # DBGHELP_LIBRARIES
 
-find_path(DBGHELP_INCLUDE_DIR dbghelp.h HINTS "C:/mingw64/x86_64-w64-mingw32/include")
+find_path(DBGHELP_INCLUDE_DIR dbghelp.h)
 if(MSVC)
   find_library(DBGHELP_LIBRARY dbghelp.lib)
 else()
