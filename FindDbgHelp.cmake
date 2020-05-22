@@ -5,11 +5,9 @@
 # DBGHELP_INCLUDE_DIR
 # DBGHELP_LIBRARIES
 
-find_path(DBGHELP_INCLUDE_DIR dbghelp.h)
+find_path(DBGHELP_INCLUDE_DIR dbghelp.h HINTS ENV INCLUDE)
 if(MSVC)
   find_library(DBGHELP_LIBRARY dbghelp.lib)
-elseif(MINGW)
-  find_library(DBGHELP_LIBRARY libdbghelp.a)
 else()
   find_library(DBGHELP_LIBRARY dbghelp)
 endif()
