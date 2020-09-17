@@ -43,7 +43,11 @@ else()
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
 
   # Common compile flags
-  set(COMMON_COMPILE_FLAGS "")
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(COMMON_COMPILE_FLAGS "-Wno-invalid-pch")
+  else()
+    set(COMMON_COMPILE_FLAGS "")
+  endif()
 
   # Pedantic compile flags
   set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
