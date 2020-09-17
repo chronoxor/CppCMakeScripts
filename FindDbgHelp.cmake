@@ -8,8 +8,6 @@
 find_path(DBGHELP_INCLUDE_DIR dbghelp.h)
 if(MSVC)
   find_library(DBGHELP_LIBRARY dbghelp.lib)
-elseif(MSYS)
-  find_library(DBGHELP_LIBRARY libdbghelp.a)
 else()
   find_library(DBGHELP_LIBRARY dbghelp)
 endif()
