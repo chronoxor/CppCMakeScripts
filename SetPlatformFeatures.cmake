@@ -31,3 +31,8 @@ elseif(WIN32)
   add_definitions(-D_WIN32_SDK=${CMAKE_WIN32_SDK})
 
 endif()
+
+# GCC compiler fix for precompiled headers
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  add_definitions(-D__cpp_runtime_arrays=198712)
+endif()
