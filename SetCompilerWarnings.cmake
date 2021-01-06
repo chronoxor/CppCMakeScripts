@@ -39,8 +39,8 @@ if(MSVC)
 else()
 
   # Make all warnings into errors
-  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror")
-  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror -Wa,-mbig-obj")
+  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror -Wa,-mbig-obj")
 
   # Common compile flags
   set(COMMON_COMPILE_FLAGS "")
