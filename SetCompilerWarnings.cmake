@@ -42,6 +42,12 @@ else()
   set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror -Wa,-mbig-obj")
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror -Wa,-mbig-obj")
 
+  # MinGW-w64 increases the number of sections that an object file can contain
+  if(MSYS)
+    set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wa,-mbig-obj")
+    set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wa,-mbig-obj")
+  endif()
+
   # Common compile flags
   set(COMMON_COMPILE_FLAGS "")
 
