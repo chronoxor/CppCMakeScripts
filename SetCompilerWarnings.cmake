@@ -43,7 +43,7 @@ else()
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
 
   # MinGW-w64 increases the number of sections that an object file can contain
-  if(MSYS)
+  if(MINGW OR MSYS)
     set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wa,-mbig-obj")
     set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wa,-mbig-obj")
   endif()
