@@ -10,7 +10,7 @@ find_library(LIBRT_LIBRARY rt)
 
 # Handle the REQUIRED argument and set LIBRT_FOUND
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(LIBRT DEFAULT_MSG LIBRT_LIBRARY LIBRT_INCLUDE_DIR)
+find_package_handle_standard_args(LibRT DEFAULT_MSG LIBRT_LIBRARY LIBRT_INCLUDE_DIR)
 
 mark_as_advanced(LIBRT_INCLUDE_DIR)
 mark_as_advanced(LIBRT_LIBRARY)

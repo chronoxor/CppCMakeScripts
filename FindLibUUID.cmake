@@ -10,7 +10,7 @@ find_library(LIBUUID_LIBRARY uuid)
 
 # Handle the REQUIRED argument and set LIBUUID_FOUND
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(LIBUUID DEFAULT_MSG LIBUUID_LIBRARY LIBUUID_INCLUDE_DIR)
+find_package_handle_standard_args(LibUUID DEFAULT_MSG LIBUUID_LIBRARY LIBUUID_INCLUDE_DIR)
 
 mark_as_advanced(LIBUUID_INCLUDE_DIR)
 mark_as_advanced(LIBUUID_LIBRARY)

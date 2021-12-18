@@ -10,7 +10,7 @@ find_library(LIBDL_LIBRARY dl)
 
 # Handle the REQUIRED argument and set LIBDL_FOUND
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(LIBDL DEFAULT_MSG LIBDL_LIBRARY LIBDL_INCLUDE_DIR)
+find_package_handle_standard_args(LibDL DEFAULT_MSG LIBDL_LIBRARY LIBDL_INCLUDE_DIR)
 
 mark_as_advanced(LIBDL_INCLUDE_DIR)
 mark_as_advanced(LIBDL_LIBRARY)
