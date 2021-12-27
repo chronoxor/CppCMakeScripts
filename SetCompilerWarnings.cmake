@@ -28,6 +28,11 @@ if(MSVC)
   set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /WX /bigobj")
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /WX /bigobj")
 
+  # Visual Studio should correctly reports __cplusplus
+  # https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /Zc:__cplusplus")
+  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /Zc:__cplusplus")
+
   # Common compile flags
   # C4100: 'identifier' : unreferenced formal parameter
   # C4250: 'class1' : inherits 'class2::member' via dominance
