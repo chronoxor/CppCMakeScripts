@@ -24,14 +24,9 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /W4")
   endif()
 
-  # Make all warnings into errors and increases the number of sections that an object file can contain
-  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /WX /bigobj")
-  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /WX /bigobj")
-
-  # Visual Studio should correctly reports __cplusplus
-  # https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus
-  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /Zc:__cplusplus")
-  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /Zc:__cplusplus")
+  # Make all warnings into errors
+  set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} /WX")
+  set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} /WX")
 
   # Common compile flags
   # C4100: 'identifier' : unreferenced formal parameter
@@ -46,12 +41,6 @@ else()
   # Make all warnings into errors
   set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wall -Werror")
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
-
-  # MinGW-w64 increases the number of sections that an object file can contain
-  if(MINGW OR MSYS)
-    set(CMAKE_C_FLAGS_CUSTOM "${CMAKE_C_FLAGS_CUSTOM} -Wa,-mbig-obj")
-    set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wa,-mbig-obj")
-  endif()
 
   # Common compile flags
   set(COMMON_COMPILE_FLAGS "")
