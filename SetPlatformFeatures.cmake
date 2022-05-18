@@ -3,7 +3,7 @@
 if(CYGWIN)
 
   # Base Windows platform
-  add_definitions(-DWIN32)
+  add_definitions(-DWIN32 -DWIN32_LEAN_AND_MEAN)
 
   # Windows 10
   add_definitions(-D_WIN32_WINNT=0x0A00)
@@ -11,7 +11,7 @@ if(CYGWIN)
 elseif(WIN32)
 
   # Base Windows platform
-  add_definitions(-DWIN32)
+  add_definitions(-DWIN32 -DWIN32_LEAN_AND_MEAN)
 
   # Disable CRT secure warnings
   add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
