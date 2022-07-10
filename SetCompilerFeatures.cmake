@@ -27,7 +27,7 @@ if(MINGW OR MSYS)
   add_compile_options(-Wa,-mbig-obj)
 
   # MinGW-w64 use static link std library
-  add_link_options(-static-libgcc,-static-libstdc++)
+  add_link_options(-static-libgcc -static-libstdc++)
 
 endif()
 
