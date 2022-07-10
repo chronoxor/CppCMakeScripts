@@ -4,7 +4,7 @@
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-# Configure compiler options
+# Configure Visual Studio compiler options
 if(MSVC)
 
   # Increase the number of sections that an object file can contain
@@ -18,17 +18,22 @@ if(MSVC)
   # https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus
   add_compile_options(/Zc:__cplusplus)
 
-else()
+endif()
+
+# Configure MSYS2/MinGW-w64 compiler options
+if(MINGW OR MSYS)
 
   # MinGW-w64 increases the number of sections that an object file can contain
-  if(MINGW OR MSYS)
-    add_compile_options(-Wa,-mbig-obj)
-  endif()
+  add_compile_options(-Wa,-mbig-obj)
+
+  # MinGW-w64 use static link std library
+  add_link_options(-static-libgcc,-static-libstdc++)
 
 endif()
 
-# Configure build in pthread library
+# Configure Unix compiler options
 if(UNIX)
+  # Configure build in pthread library
   set(CMAKE_THREAD_LIBS_INIT "-lpthread")
   set(CMAKE_HAVE_THREADS_LIBRARY 1)
   set(CMAKE_USE_WIN32_THREADS_INIT 0)
