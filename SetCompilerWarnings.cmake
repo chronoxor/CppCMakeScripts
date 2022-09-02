@@ -43,7 +43,7 @@ else()
   set(CMAKE_CXX_FLAGS_CUSTOM "${CMAKE_CXX_FLAGS_CUSTOM} -Wall -Werror")
 
   # Common compile flags
-  set(COMMON_COMPILE_FLAGS "")
+  set(COMMON_COMPILE_FLAGS "-Wno-restrict")
 
   # Pedantic compile flags
   set(PEDANTIC_COMPILE_FLAGS "${COMMON_COMPILE_FLAGS} -Wshadow -pedantic")
