@@ -44,7 +44,7 @@ else()
 
   # Common compile flags
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(COMMON_COMPILE_FLAGS "-Wno-restrict")
+    set(COMMON_COMPILE_FLAGS "-Wno-maybe-uninitialized -Wno-restrict")
   else()
     set(COMMON_COMPILE_FLAGS "")
   endif()
