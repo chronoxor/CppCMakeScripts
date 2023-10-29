@@ -7,8 +7,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # Configure Clang compiler options
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
-  # Clang compiler should use libc++
-  add_compile_options(-stdlib=libc++)
+  # Clang link should use libc++
+  add_link_options(-stdlib=libc++)
 
 endif()
 
