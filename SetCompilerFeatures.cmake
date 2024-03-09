@@ -12,6 +12,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
 endif()
 
+# Check for MSYS2 building environment
+get_filename_component(CMAKE_MAKE_NAME ${CMAKE_MAKE_PROGRAM} NAME_WE)
+if (MINGW AND CMAKE_MAKE_NAME STREQUAL "make")
+  set(MSYS 1)
+endif()
+
 # Configure MSYS2/MinGW-w64 compiler options
 if(MINGW OR MSYS)
 
