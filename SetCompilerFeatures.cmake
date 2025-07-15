@@ -4,6 +4,14 @@
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS ON)
 
+# Configure Apple compiler options
+if(APPLE)
+
+  # Apple liker should ignore duplicate libraries
+  add_link_options(-Wl,-no_warn_duplicate_libraries)
+
+endif()
+
 # Configure Clang compiler options
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
