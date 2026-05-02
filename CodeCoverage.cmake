@@ -17,5 +17,25 @@ if(CODE_COVERAGE)
   # "Problem reading source file" errors during coverage accumulation.
   set(COVERAGE_EXTRA_FLAGS "-l -p" CACHE STRING "Extra flags for gcov coverage" FORCE)
 
+  # gcovr flags: skip branches that can never be reached, lines that are
+  # non-executable (comments, blank lines), and implicit throw branches
+  # injected by the compiler for exception-safe code.
+  find_program(GCOVR_PATH gcovr)
+  if(GCOVR_PATH)
+    add_custom_target(coverage-gcovr
+      COMMAND ${GCOVR_PATH}
+        --exclude-unreachable-branches
+        --exclude-noncode-lines
+        --exclude-throw-branches
+        --root ${CMAKE_SOURCE_DIR}
+        --object-directory ${CMAKE_BINARY_DIR}
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+      COMMENT "Running gcovr coverage report"
+    )
+    message(STATUS "gcovr found: ${GCOVR_PATH}")
+  else()
+    message(STATUS "gcovr not found, coverage-gcovr target not available")
+  endif()
+
   message(STATUS "Code coverage is enabled")
 endif()
