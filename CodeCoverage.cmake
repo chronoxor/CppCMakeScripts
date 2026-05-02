@@ -17,11 +17,30 @@ if(CODE_COVERAGE)
   # "Problem reading source file" errors during coverage accumulation.
   set(COVERAGE_EXTRA_FLAGS "-l -p" CACHE STRING "Extra flags for gcov coverage" FORCE)
 
+  # Restrict CTest coverage accumulation to include/ and source/ only.
+  # Patterns are regexes matched against the full file path; anything that
+  # does NOT live under those two directories is excluded.
+  file(WRITE "${CMAKE_BINARY_DIR}/CTestCustom.cmake"
+    "set(CTEST_CUSTOM_COVERAGE_EXCLUDE\n"
+    "  \".*/bin/.*\"\n"
+    "  \".*/build/.*\"\n"
+    "  \".*/cmake/.*\"\n"
+    "  \".*/documents/.*\"\n"
+    "  \".*/examples/.*\"\n"
+    "  \".*/images/.*\"\n"
+    "  \".*/performance/.*\"\n"
+    "  \".*/plugins/.*\"\n"
+    "  \".*/modules/.*\"\n"
+    "  \".*/temp/.*\"\n"
+    "  \".*/tests/.*\"\n"
+    ")\n"
+  )
+
   # gcovr flags: skip branches that can never be reached, lines that are
   # non-executable (comments, blank lines), and implicit throw branches
   # injected by the compiler for exception-safe code.
   find_program(GCOVR_PATH gcovr)
-  if(GCOVR_PATH)
+  if(GCOVR_PATH AND NOT TARGET coverage-gcovr)
     add_custom_target(coverage-gcovr
       COMMAND ${GCOVR_PATH}
         --exclude-unreachable-branches
